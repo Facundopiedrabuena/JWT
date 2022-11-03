@@ -1,11 +1,10 @@
-
-
 import React, { useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
+import { Link } from "react-router-dom";
 import "../../styles/home.css";
 import { Login } from "../component/login";
 
-export const Home = () => {
+export const Privada = () => {
   const { store, actions } = useContext(Context);
 
   /* utilizamos useEffect para optener del actions en flux.js el token del usuario con la función getTokenFromSession*/
@@ -14,25 +13,21 @@ export const Home = () => {
   }, []);
 
   return (
-    /* utilizando el operador ternario, evaluamos si la variable token dentro de store está vacía, nula o indefinida para renderizar el componente de login */
-    /* en caso que si tenemos token guardado en la sesión, renderizamos página de inicio personalizada */
     <>
       {!store.token ||
       store.token === null ||
       store.token === "" ||
       store.token === undefined ? (
-        <div className="text-center mt-5">
-          <h1 className="text-center">Bienvenido al Home Page</h1>
-          <h4>Esto es un proyecto sobre Autenticación con JWT Extention</h4>
-          <h6>Para evaluar mi funcionamiento, debes iniciar sesión</h6>
-          <Login />
+        <div>
+          <p>No haz iniciado sesión</p>
         </div>
       ) : (
         /* En caso que el usuario esté logeado, se renderiza el contenido a continuación */
         <div className="text-center mt-5">
-          <h1 className="text-center">Bienvenido al Home Page</h1>
+          <h1 className="text-center">Bienvenido a tu página de perfil</h1>
           <h4>Esto es un proyecto sobre Autenticación con JWT Extention</h4>
-          <h6>Muy bien, haz iniciado sesión, visita tu página de perfil</h6>
+          <h6>Muy bien, haz iniciado sesión y tu token es:</h6>
+          <p>{store.token}</p>
         </div>
       )}
     </>
